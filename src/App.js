@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      newToDo: 'test',
+      newToDo: '',
       todoList:[
         {id:1, title:'firstItem'},
         {id:2, title:'secondItem'}
