@@ -1,10 +1,6 @@
 .App {
     text-align: center;
     width: 400px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     height: 300px;
     box-shadow: 0px 4px 4px 2px #5d2dd7;
     border-radius: 20px;
@@ -28,4 +24,17 @@
     outline: none;
     background-color: white;
     box-shadow: 0px 2px 2px #c8be78;
+}
+
+.App .todos-item {
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+    color: black;
+}
+
+.App .todos-item>li {
+    margin-bottom: .6rem;
 }

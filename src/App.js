@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'normalize.css';
+import './reset.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 
@@ -30,7 +32,7 @@ class App extends Component {
       <div className="App">
         <h1 className="titile">My schedule</h1>
         <TodoInput content={this.state.newToDo}/>
-        <ul className="todo-item">{todos}</ul>
+        <ul className="todos-item">{todos}</ul>
       </div>
     );
   }

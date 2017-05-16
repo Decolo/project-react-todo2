@@ -8,3 +8,10 @@ body {
     font-size: 12px;
     background-image: linear-gradient(to bottom, #5a36f3, #9436f3);
 }
+
+#root {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
