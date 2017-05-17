@@ -12,29 +12,41 @@ class App extends Component {
     this.state = {
       newToDo: '',
       todoList:[
-        {id:1, title:'firstItem'},
-        {id:2, title:'secondItem'}
       ]
     }
   }
   render() {
-
-    let todos = this.state.todoList.map((item,index)=>{
-      return (
-        <li>
-          <TodoItem todo={item}/>
-        </li>
-      )
-    })
-    console.log(todos)
-
+    let todos = this.state.todoList.map((item,index)=>
+        <li key={index}><TodoItem todo={item}/></li>
+    )
+    // console.log(todos)
+    // console.log(this)  render方法的this自动是App
     return (
       <div className="App">
         <h1 className="titile">My schedule</h1>
-        <TodoInput content={this.state.newToDo}/>
+        <TodoInput content={this.state.newToDo} onSubmit={this.addTodo.bind(this)}/>
         <ul className="todos-item">{todos}</ul>
       </div>
     );
+  }
+  addTodo(e){
+    // console.log(this) 新的方法，它的this需要通过bind重新绑定
+    // console.log(this.state.todoList)
+    this.state.todoList.push({
+      id:(function(){
+        let i = 0;
+        i++;
+        return i;
+      })(),
+      title: e.target.value,
+      status: null,
+      deleted: false
+    })
+    console.log(this.state.todoList)
+    this.setState({
+      newTodo: '',
+      todoList: this.state.todoList
+    })
   }
 }
 
