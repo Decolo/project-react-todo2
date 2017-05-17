@@ -24,7 +24,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="titile">My schedule</h1>
-        <TodoInput content={this.state.newToDo} onSubmit={this.addTodo.bind(this)}/>
+        <TodoInput content={this.state.newToDo} 
+          onSubmit={this.addTodo.bind(this)}
+          onChange={this.changeTitle.bind(this)}/>
         <ul className="todos-item">{todos}</ul>
       </div>
     );
@@ -42,9 +44,14 @@ class App extends Component {
       status: null,
       deleted: false
     })
-    console.log(this.state.todoList)
     this.setState({
       newTodo: '',
+      todoList: this.state.todoList
+    })
+  }
+  changeTitle(e){
+    this.setState({
+      newTodo: e.target.value,
       todoList: this.state.todoList
     })
   }
