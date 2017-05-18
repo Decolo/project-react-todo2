@@ -16,7 +16,9 @@ class App extends Component {
     }
   }
   render() {
-    let todos = this.state.todoList.map((item,index)=>
+    let todos = this.state.todoList
+    .filter((item)=>{return !item.deleted})
+    .map((item,index)=>
         <li key={index}>
           <TodoItem todo={item} onToggle={this.toggle.bind(this)}
           onDelete={this.delete.bind(this)}/>
