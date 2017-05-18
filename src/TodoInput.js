@@ -9,7 +9,11 @@ class TodoInput extends Component{
     }//监听了按键事件，用value无效，改用defaultVaule
     submit(e){
         if(e.key === 'Enter'){
-           this.props.onSubmit(e) 
+           if(e.target.value === ''){
+               alert('输入不能为空')
+           }else{
+                this.props.onSubmit(e) 
+           }
         }
     } //监听了回车这个事件
     changeTitle(e){

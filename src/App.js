@@ -28,12 +28,12 @@ class App extends Component {
     // console.log(this)  render方法的this自动是App
     return (
       <div className="App">
-        <h1 className="titile">My schedule</h1>
+        <h1 className="title">My schedule</h1>
         <TodoInput content={this.state.newTodo} 
           onChange={this.changeTitle.bind(this)}
           onSubmit={this.addTodo.bind(this)}
            />  {/*见鬼了，这一段拷贝来显示正常，自己写的就只能一个一个的输入*/}
-        <ul className="todos-item">{todos}</ul>
+        <ul className="todos-list">{todos}</ul>
       </div>
     );
     
@@ -57,7 +57,7 @@ class App extends Component {
         i++;
         return i;
       })(),
-      title: e.target.value,
+      itemContent: e.target.value,
       status: null,
       deleted: false
     })
