@@ -10,7 +10,7 @@
   "devDependencies": {
     "react-scripts": "0.9.5"
   },
-  "homepage":"https://decolo.github.io/project-react-todo",
+  "homepage":"https://decolo.github.io/project-react-todo/build",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
