@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 
 class TodoInput extends Component{
     render(){
-        return(<input onKeyPress={this.submit.bind(this)} 
-            type="text" value={this.props.content} 
+        return(<input type="text" className="input" placeholder="type here"
+            value={this.props.content} 
             onChange={this.changeTitle.bind(this)}
-            className="input" placeholder="type here"/>)
+            onKeyPress={this.submit.bind(this)} />)
     }//监听了按键事件，用value无效，改用defaultVaule
     submit(e){
         if(e.key === 'Enter'){
@@ -17,4 +17,4 @@ class TodoInput extends Component{
     }
 }
 
-export default TodoInput
+export default TodoInput;
