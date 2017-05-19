@@ -20,12 +20,14 @@ class App extends Component {
     .filter((item)=>{return !item.deleted})
     .map((item,index)=>
         <li key={index}>
-          <TodoItem todo={item} onToggle={this.toggle.bind(this)}
+          <TodoItem todo={item} index={'item' + index}
+          onToggle={this.toggle.bind(this)}
           onDelete={this.delete.bind(this)}/>
         </li>
     )
     // console.log(todos)
     // console.log(this)  render方法的this自动是App
+    // console.log(this.state.newTodo)
     return (
       <div className="App">
         <h1 className="title">My schedule</h1>
@@ -47,6 +49,7 @@ class App extends Component {
       newTodo: e.target.value,
       todoList: this.state.todoList
     })
+    // console.log(this.state.newTodo)
   }
   addTodo(e){
     // console.log(this) 新的方法，它的this需要通过bind重新绑定
@@ -70,7 +73,6 @@ class App extends Component {
     todo.deleted = true
     this.setState(this.state)
   }
-  
 }
 
 export default App;
