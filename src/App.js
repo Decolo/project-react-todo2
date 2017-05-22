@@ -4,20 +4,34 @@ import 'normalize.css';
 import './reset.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
+import * as localStore from './localStore'
 
 
 class App extends Component {
   constructor(props){
     super(props)
+    this.id = 0
     this.state = {
       newTodo: '',
-      todoList:[
-      ]
+      todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
+                                            // 数据结构 {
+                                            //             todoList:[
+                                            //               {id:..., itemContent:..., status:..., deleted:...},
+                                            //               {id:..., itemContent:..., status:..., deleted:...},
+                                            //               {id:..., itemContent:..., status:..., deleted:...}
+                                            //               {id:..., itemContent:..., status:..., deleted:...}
+                                            //             ]
+                                            //               newTodo:'';每次新添加一个todo，就要在input中清空已经输入的内容
+                                            //         }
     }
+  }
+  idMaker(){
+    this.id ++
+    return this.id
   }
   render() {
     let todos = this.state.todoList
-    .filter((item)=>{return !item.deleted})
+    .filter((item)=>{return !item.deleted})     
     .map((item,index)=>
         <li key={index}>
           <TodoItem todo={item} index={'item' + index}
@@ -40,7 +54,22 @@ class App extends Component {
     );
     
   }
+  addTodo(e){
+    // console.log(this) 新的方法，它的this需要通过bind重新绑定
+    this.state.todoList.push({   //添加一个新的todo
+      id:this.idMaker(),
+      itemContent: e.target.value,
+      status: null,
+      deleted: false
+    })
+    this.setState({
+      newTodo: '',
+      todoList: this.state.todoList
+    })
+  }
   toggle(e,todo){
+    // console.log(this.state.todoList)
+    // console.log(todo)
     todo.status =  todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state) //触发一次重绘
   }
@@ -51,24 +80,6 @@ class App extends Component {
     })
     // console.log(this.state.newTodo)
   }
-  addTodo(e){
-    // console.log(this) 新的方法，它的this需要通过bind重新绑定
-    // console.log(this.state.todoList)
-    this.state.todoList.push({
-      id:(function(){
-        let i = 0;
-        i++;
-        return i;
-      })(),
-      itemContent: e.target.value,
-      status: null,
-      deleted: false
-    })
-    this.setState({
-      newTodo: '',
-      todoList: this.state.todoList
-    })
-  }
   delete(e,todo){
     todo.deleted = true
     this.setState(this.state)
@@ -76,3 +87,15 @@ class App extends Component {
 }
 
 export default App;
+
+//1.react一切的变化都依靠setState去实现，state作为一个对象，它记录了初始状态的需要的一些参数。
+//2."增"添加一个todo的Item，监听todoInput，一旦点击的是enter键，执行addTodo方法，在this.state.todoList中添加一个新的对象。再将this.state
+//  这个对象交给this.setState这个方法去执行，触发重绘。新增加的todoItem就会被渲染到页面上。
+//3."删"删除一个todo的Item，监听删除的按钮，点击删除按钮，执行delete方法，那么将它对应的在this.state.todoList中
+//  的对象中的deleted属性改变。再将this.state这个对象交给this.setState这个方法去执行，触发重绘。在重绘过程中重新执行App的render()，
+//  把对象中deleted属性为true的都排除，只留下deleted属性不为true的进行渲染。
+//4."改"改变todoInput中输入的值，那么要监听todoInput,一旦有新的输入，触发changeTitle方法，直接给this.setState传入一个对象，newTodo的值为
+//  todoInput输入的内容，执行this.setState触发重绘，TodoInput中的Input标签的value就是newTodo的值。
+//5.某项todo完成，那么监听todoItem,点击就执行toggle标记该代办项已经完成。每点击一个todItem，那么将它对应的在this.state.todoList中
+//  的对象中的status属性改变。再将this.state这个对象交给this.setState这个方法去执行，触发重绘。其中每一个todoList中包含的那个checkbox
+//  checked属性会发生变化。

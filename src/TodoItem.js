@@ -15,8 +15,9 @@ export default class TodoItem extends Component {
                 className = "btn-delete"></a>
             </div>
             )
-        }
+        }  
         delete(e) {
+            console.log(e.target)
             this.props.onDelete(e, this.props.todo)
         }
         toggle(e) {
