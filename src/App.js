@@ -8,82 +8,91 @@ import * as localStore from './localStore'
 
 
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.id = 0
-    this.state = {
-      newTodo: '',
-      todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
-                                            // 数据结构 {
-                                            //             todoList:[
-                                            //               {id:..., itemContent:..., status:..., deleted:...},
-                                            //               {id:..., itemContent:..., status:..., deleted:...},
-                                            //               {id:..., itemContent:..., status:..., deleted:...}
-                                            //               {id:..., itemContent:..., status:..., deleted:...}
-                                            //             ]
-                                            //               newTodo:'';每次新添加一个todo，就要在input中清空已经输入的内容
-                                            //         }
+    constructor(props) {
+        super(props)
+        this.id = 0 //初始化第一个todoItem的id从一开始，先设为0
+        this.state = localStore.load('state') || { newTodo: '', todoList: [] }
+            // this.state = {
+            //   newTodo: '',
+            //   todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
+            //                                         // 数据结构 {
+            //                                         //             todoList:[
+            //                                         //               {id:..., itemContent:..., status:..., deleted:...},
+            //                                         //               {id:..., itemContent:..., status:..., deleted:...},
+            //                                         //               {id:..., itemContent:..., status:..., deleted:...}
+            //                                         //               {id:..., itemContent:..., status:..., deleted:...}
+            //                                         //             ]
+            //                                         //               newTodo:'';每次新添加一个todo，就要在input中清空已经输入的内容
+            //                                         //         }
+            // }
     }
-  }
-  idMaker(){
-    this.id ++
-    return this.id
-  }
-  render() {
-    let todos = this.state.todoList
-    .filter((item)=>{return !item.deleted})     
-    .map((item,index)=>
-        <li key={index}>
-          <TodoItem todo={item} index={'item' + index}
-          onToggle={this.toggle.bind(this)}
-          onDelete={this.delete.bind(this)}/>
-        </li>
-    )
-    // console.log(todos)
-    // console.log(this)  render方法的this自动是App
-    // console.log(this.state.newTodo)
-    return (
-      <div className="App">
-        <h1 className="title">My schedule</h1>
-        <TodoInput content={this.state.newTodo} 
-          onChange={this.changeTitle.bind(this)}
-          onSubmit={this.addTodo.bind(this)}
-           />  {/*见鬼了，这一段拷贝来显示正常，自己写的就只能一个一个的输入*/}
-        <ul className="todos-list">{todos}</ul>
-      </div>
-    );
-    
-  }
-  addTodo(e){
-    // console.log(this) 新的方法，它的this需要通过bind重新绑定
-    this.state.todoList.push({   //添加一个新的todo
-      id:this.idMaker(),
-      itemContent: e.target.value,
-      status: null,
-      deleted: false
-    })
-    this.setState({
-      newTodo: '',
-      todoList: this.state.todoList
-    })
-  }
-  toggle(e,todo){
-    // console.log(this.state.todoList)
-    // console.log(todo)
-    todo.status =  todo.status === 'completed' ? '' : 'completed'
-    this.setState(this.state) //触发一次重绘
-  }
-  changeTitle(e){
-    this.setState({
-      newTodo: e.target.value,
-      todoList: this.state.todoList
-    })
-    // console.log(this.state.newTodo)
-  }
-  delete(e,todo){
-    todo.deleted = true
-    this.setState(this.state)
-  }
+    render() {
+            let todos = this.state.todoList
+                .filter((item) => { return !item.deleted })
+                .map((item, index) =>
+                    <li key = { index } >
+                        <TodoItem todo = { item }
+                        index = { 'item' + index }
+                        onToggle = { this.toggle.bind(this) }
+                        onDelete = { this.delete.bind(this) }
+                        /> 
+                    </li>
+                )
+                // console.log(todos)
+                // console.log(this)  render方法的this自动是App
+                // console.log(this.state.newTodo)
+            return ( 
+                <div className = "App">
+                    <h1 className = "title" > My schedule </h1> 
+                    <TodoInput content = { this.state.newTodo }
+                    onChange = { this.changeTitle.bind(this) }
+                    onSubmit = { this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
+                    <ul className = "todos-list">{todos}</ul>
+                </div>
+            )
+
+        }
+        //增
+    addTodo(e) {
+            // console.log(this) 新的方法，它的this需要通过bind重新绑定
+            this.state.todoList.push({ //添加一个新的todo
+                id: this.idMaker(),
+                itemContent: e.target.value,
+                status: null,
+                deleted: false
+            })
+            this.setState({
+                newTodo: '',
+                todoList: this.state.todoList
+            })
+            localStore.save('state', this.state) //储存此时的this。state
+        }
+    idMaker() {
+        this.id++
+        return this.id
+    }
+        //删
+    delete(e, todo) {
+            todo.deleted = true
+            this.setState(this.state)
+            localStore.save('state', this.state) //储存此时的this。state
+        }
+        //改
+    changeTitle(e) {
+            this.setState({
+                newTodo: e.target.value,
+                todoList: this.state.todoList
+            })
+            localStore.save('state', this.state) //储存此时的this。state
+        }
+        //查
+    toggle(e, todo) {
+        // console.log(this.state.todoList)
+        // console.log(todo)
+        todo.status = todo.status === 'completed' ? '' : 'completed'
+        this.setState(this.state) //触发一次重绘
+        localStore.save('state', this.state) //储存此时的this。state
+    }
 }
 
 export default App;
