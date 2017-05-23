@@ -11,10 +11,10 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.id = 0 //初始化第一个todoItem的id从一开始，先设为0
-        this.state = localStore.load('state') || { newTodo: '', todoList: [] }
-            // this.state = {
-            //   newTodo: '',
-            //   todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
+        // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
+            this.state = {
+              newTodo: '',
+              todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
             //                                         // 数据结构 {
             //                                         //             todoList:[
             //                                         //               {id:..., itemContent:..., status:..., deleted:...},
@@ -24,7 +24,7 @@ class App extends Component {
             //                                         //             ]
             //                                         //               newTodo:'';每次新添加一个todo，就要在input中清空已经输入的内容
             //                                         //         }
-            // }
+            }
     }
     render() {
             let todos = this.state.todoList
@@ -53,7 +53,9 @@ class App extends Component {
 
         }
     componentDidUpdate(){
-        localStore.save('state',this.state) // componentDidUpdate 会在组件更新之后调用。
+        localStore.save('state',this.state) 
+        localStore.save('state',this.state.todoList)
+        // componentDidUpdate 会在组件更新之后调用。
         //如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
     }
         //增
