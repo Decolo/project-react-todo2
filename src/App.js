@@ -52,6 +52,10 @@ class App extends Component {
             )
 
         }
+    componentDidUpdate(){
+        localStore.save('state',this.state) // componentDidUpdate 会在组件更新之后调用。
+        //如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
+    }
         //增
     addTodo(e) {
             // console.log(this) 新的方法，它的this需要通过bind重新绑定
@@ -65,7 +69,7 @@ class App extends Component {
                 newTodo: '',
                 todoList: this.state.todoList
             })
-            localStore.save('state', this.state) //储存此时的this。state
+            // localStore.save('state', this.state) //储存此时的this。state
         }
     idMaker() {
         this.id++
@@ -75,7 +79,7 @@ class App extends Component {
     delete(e, todo) {
             todo.deleted = true
             this.setState(this.state)
-            localStore.save('state', this.state) //储存此时的this。state
+            // localStore.save('state', this.state) //储存此时的this。state
         }
         //改
     changeTitle(e) {
@@ -83,7 +87,7 @@ class App extends Component {
                 newTodo: e.target.value,
                 todoList: this.state.todoList
             })
-            localStore.save('state', this.state) //储存此时的this。state
+            // localStore.save('state', this.state) //储存此时的this。state
         }
         //查
     toggle(e, todo) {
@@ -91,7 +95,7 @@ class App extends Component {
         // console.log(todo)
         todo.status = todo.status === 'completed' ? '' : 'completed'
         this.setState(this.state) //触发一次重绘
-        localStore.save('state', this.state) //储存此时的this。state
+        // localStore.save('state', this.state) //储存此时的this。state
     }
 }
 
