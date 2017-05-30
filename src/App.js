@@ -19,7 +19,7 @@ AV.init({
 var TestObject = AV.Object.extend('TestObject');
 var testObject = new TestObject();
 testObject.save({
-  words: 'Hello World!'
+  words: 'Hi'
 }).then(function(object) {
   alert('LeanCloud Rocks!');
 })
@@ -72,7 +72,7 @@ class App extends Component {
         }
     componentDidUpdate(){
         // localStore.save('state',this.state) 
-        localStore.save('state',this.state.todoList)
+        localStore.save('todoList',this.state.todoList)
         // componentDidUpdate 会在组件更新之后调用。
         // 如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
     }
