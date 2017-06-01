@@ -5,7 +5,11 @@ class UserDialog extends Component{
     constructor(props){
         super(props)
         this.state={
-            selected:'signUp'
+            selected:'signUp',
+            formData:{
+                username: '',
+                password: '',
+            }
         }
     }
     switch(e){
@@ -13,9 +17,22 @@ class UserDialog extends Component{
             selected: e.target.value
         })
     }
-
+    signIn(e){}
+    signUp(e){
+        console.log('signUp')
+    }
+    changeUsername(e){
+        let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
+        stateCopy.formData.username = e.target.value
+        this.setState(stateCopy)
+    }
+    changePassword(e){
+        let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
+        stateCopy.formData.password = e.target.value
+        this.setState(stateCopy)
+    }
     render(){
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div className="user-dialog-wrapper">
                 <div className="user-dialog">
@@ -38,32 +55,36 @@ class UserDialog extends Component{
                     <div className="content">
                         <div className = "panes">
                             <nav onChange={this.switch.bind(this)}>
-                                <label htmlFor="signUp" value={this.state.selected==='signUp'}><input type='radio' id="signUp" 
-                                checked={this.state.selected==='signUp'} value="signUp"/>Sign Up</label>
-                                <label htmlFor="signIn" value={this.state.selected==='signIn'}><input type='radio' id="signIn" 
-                                checked={this.state.selected==='signIn'} value="signIn"/>Sign In</label>
+                                <label htmlFor="signUp" value={this.state.selected==='signUp'}>
+                                <input type='radio' id="signUp" checked={this.state.selected==='signUp'} 
+                                value="signUp"/>Sign Up</label>
+                                <label htmlFor="signIn" value={this.state.selected==='signIn'}>
+                                <input type='radio' id="signIn" checked={this.state.selected==='signIn'} 
+                                value="signIn"/>Sign In</label>
                             </nav>
-                            <form className="sign-up" value={this.state.selected==='signUp'}>
+                            <form className="sign-up" value={this.state.selected==='signUp'} 
+                            onSubmit={this.signUp.bind(this)}> 
                                 <div className="row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
-                                    <input type="text" id="username"/>
+                                    <input type="text" id="username" onChange={this.changeUsername.bind(this)}/>
                                 </div>
                                 <div className="row">
                                     <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
-                                    <input type="password" id="password"/>
+                                    <input type="password" id="password" onChange={this.changePassword.bind(this)}/>
                                 </div>
                                 <div className="row action">
                                     <button type="submit">Sign Up</button>
                                 </div>
                             </form>
-                            <form className="sign-in" value={this.state.selected==='signIn'}>
+                            <form className="sign-in" value={this.state.selected==='signIn'}
+                            onSubmit={this.signIn.bind(this)}>
                                 <div className = "row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
-                                    <input type="text" id="username"/>
+                                    <input type="text" id="username" onChange={this.changeUsername.bind(this)}/>
                                 </div>
                                 <div className = "row">
                                     <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
-                                    <input type="password" id="password"/>
+                                    <input type="password" id="password" onChange={this.changePassword.bind(this)}/>
                                 </div>
                                 <div className = "row action">
                                     <button type="submit">Sign In</button>
