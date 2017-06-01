@@ -5,6 +5,7 @@ import './reset.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
+import {getCurrentUser} from './leanCloud'
 
 
 /*----------测试代码----------*/
@@ -24,7 +25,7 @@ class App extends Component {
         this.id = 0                                         //初始化第一个todoItem的id从一开始，先设为0
                                                             // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
         this.state = {
-              user: {},
+              user: getCurrentUser() || {},                 //getCurrentUser()返回getUserFromAVUser(user)或者是null
               newTodo: '',
               todoList:[]                                   //todoList中有四个属性，分别是id、itemContent、status、deleted
                                                             // 数据结构 {
@@ -59,7 +60,7 @@ class App extends Component {
                     onChange={ this.changeTitle.bind(this) }
                     onSubmit={ this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
                     <ul className="todos-list">{todos}</ul>
-                    <UserDialog onSignUp={this.onSignUp.bind(this)}/>
+                    {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)}/>}{/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
                 </div>
             )
 
@@ -111,8 +112,8 @@ class App extends Component {
         // localStore.save('state', this.state) //储存此时的this。state
     }
     onSignUp(user){
-        let stateCopy = JSON.parse(JSON.stringify(this.state)) 
-        stateCopy.user = user
+        let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
+        stateCopy.user = user  // user = {id:xx, attr:xx}
         this.setState(stateCopy)
     }
 }

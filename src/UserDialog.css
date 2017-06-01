@@ -146,7 +146,7 @@
     display: none;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes nav>label[value=true] {
+.user-dialog-wrapper .user-dialog .content .panes nav>label[data=true] {
     color: #666;
     font-size: 1.2rem;
 }

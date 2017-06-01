@@ -20,6 +20,7 @@ class UserDialog extends Component{
     }
     signIn(e){}
     signUp(e){
+        console.log('submit')
         e.preventDefault()
         let {username, password} = this.state.formData
         let success = (user)=>{
@@ -59,10 +60,10 @@ class UserDialog extends Component{
                     <div className="content">
                         <div className="panes">
                             <nav onChange={this.switch.bind(this)}>
-                                <label htmlFor="signUp" value={this.state.selected==='signUp'}>
+                                <label htmlFor="signUp" data={this.state.selected==='signUp'}>
                                 <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
                                 value="signUp"/>Sign Up</label>
-                                <label htmlFor="signIn" value={this.state.selected==='signIn'}>
+                                <label htmlFor="signIn" data={this.state.selected==='signIn'}>
                                 <input type='radio' id="signIn" defaultChecked={this.state.selected==='signIn'} 
                                 value="signIn"/>Sign In</label>
                             </nav>

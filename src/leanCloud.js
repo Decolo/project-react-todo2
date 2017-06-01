@@ -15,12 +15,16 @@ export function signUp(username, password, successFn, errorFn) {
     user.setPassword(password)
     user.signUp().then(function(loginedUser) {
         let user = getUserFromAVUser(loginedUser)
-        successFn.call(null, user)
+        successFn.call(null, user) // user => {id:xx,attr:xx}
     }, function(error) {
         errorFn.call(null, error)
     });
 }
 
+export function getCurrentUser() {
+    let user = AV.User.current()
+    return user ? getUserFromAVUser(user) : null
+}
 
 function getUserFromAVUser(AVUser) {
     return {
