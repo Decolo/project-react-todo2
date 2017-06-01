@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './UserDialog.css'
+import './UserDialog.css';
+import {signUp} from './leanCloud';
 
 class UserDialog extends Component{
     constructor(props){
@@ -19,7 +20,15 @@ class UserDialog extends Component{
     }
     signIn(e){}
     signUp(e){
-        console.log('signUp')
+        e.preventDefault()
+        let {username, password} = this.state.formData
+        let success = (user)=>{
+            console.log(user)
+        }
+        let error = (error)=>{
+            console.log(error)
+        }
+        signUp(username, password, success, error)
     }
     changeFormData(key,e){
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
