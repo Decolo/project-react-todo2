@@ -21,18 +21,13 @@ class UserDialog extends Component{
     signUp(e){
         console.log('signUp')
     }
-    changeUsername(e){
+    changeFormData(key,e){
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
-        stateCopy.formData.username = e.target.value
-        this.setState(stateCopy)
-    }
-    changePassword(e){
-        let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
-        stateCopy.formData.password = e.target.value
+        stateCopy.formData[key] = e.target.value
         this.setState(stateCopy)
     }
     render(){
-        // console.log(this.state)
+        console.log(this.state)
         return(
             <div className="user-dialog-wrapper">
                 <div className="user-dialog">
@@ -66,11 +61,11 @@ class UserDialog extends Component{
                             onSubmit={this.signUp.bind(this)}> 
                                 <div className="row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
-                                    <input type="text" id="username" onChange={this.changeUsername.bind(this)}/>
+                                    <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
                                 </div>
                                 <div className="row">
                                     <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
-                                    <input type="password" id="password" onChange={this.changePassword.bind(this)}/>
+                                    <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
                                 </div>
                                 <div className="row action">
                                     <button type="submit">Sign Up</button>
@@ -80,11 +75,11 @@ class UserDialog extends Component{
                             onSubmit={this.signIn.bind(this)}>
                                 <div className = "row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
-                                    <input type="text" id="username" onChange={this.changeUsername.bind(this)}/>
+                                    <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
                                 </div>
                                 <div className = "row">
                                     <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
-                                    <input type="password" id="password" onChange={this.changePassword.bind(this)}/>
+                                    <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
                                 </div>
                                 <div className = "row action">
                                     <button type="submit">Sign In</button>
