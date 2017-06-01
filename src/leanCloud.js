@@ -15,9 +15,9 @@ export function signUp(username, password, successFn, errorFn) {
     user.setPassword(password)
     user.signUp().then(function(loginedUser) {
         let user = getUserFromAVUser(loginedUser)
-        successFn(user)
+        successFn.call(null, user)
     }, function(error) {
-        errorFn(error)
+        errorFn.call(null, error)
     });
 }
 
