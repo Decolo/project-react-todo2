@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
 class TodoInput extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
+        console.log(this)
     }
     render(){
         return(<input type="text" className="input" placeholder="type here"

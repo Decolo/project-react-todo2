@@ -193,6 +193,6 @@
     outline: none;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form[value=false] {
+.user-dialog-wrapper .user-dialog .content .panes form[data=false] {
     display: none;
 }

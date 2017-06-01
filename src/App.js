@@ -42,23 +42,23 @@ class App extends Component {
             let todos = this.state.todoList
                 .filter((item) => { return !item.deleted })
                 .map((item, index) =>
-                    <li key = { index } >
-                        <TodoItem todo = { item }
-                        index = { 'item' + index }
-                        onToggle = { this.toggle.bind(this) }
-                        onDelete = { this.delete.bind(this) }
+                    <li key={ index } >
+                        <TodoItem todo={item}
+                        index={ 'item' + index }
+                        onToggle={ this.toggle.bind(this) }
+                        onDelete={ this.delete.bind(this) }
                         /> 
                     </li>
                 )
                 // console.log(todos)
                 // console.log(this.state.newTodo)
             return ( 
-                <div className = "App">
-                    <h1 className = "title" > {this.state.user.username + "'s"|| 'My'} schedule</h1> 
-                    <TodoInput content = { this.state.newTodo }
-                    onChange = { this.changeTitle.bind(this) }
-                    onSubmit = { this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
-                    <ul className = "todos-list">{todos}</ul>
+                <div className="App">
+                    <h1 className="title" > {this.state.user.username + "'s"|| 'My'} schedule</h1> 
+                    <TodoInput content={ this.state.newTodo }
+                    onChange={ this.changeTitle.bind(this) }
+                    onSubmit={ this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
+                    <ul className="todos-list">{todos}</ul>
                     <UserDialog onSignUp={this.onSignUp.bind(this)}/>
                 </div>
             )
@@ -111,8 +111,9 @@ class App extends Component {
         // localStore.save('state', this.state) //储存此时的this。state
     }
     onSignUp(user){
-        this.state.user = user
-        this.setState(this.state)
+        let stateCopy = JSON.parse(JSON.stringify(this.state)) 
+        stateCopy.user = user
+        this.setState(stateCopy)
     }
 }
 

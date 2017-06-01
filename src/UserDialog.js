@@ -41,14 +41,14 @@ class UserDialog extends Component{
             <div className="user-dialog-wrapper">
                 <div className="user-dialog">
                     <div className="bubble">
-                        <div className = "wrapper">
+                        <div className="wrapper">
                             <div></div>
                             <div></div>
                             <div></div>
                         </div>
                     </div>
                     <div className="bubble">
-                        <div className = "wrapper">
+                        <div className="wrapper">
                             <div></div>
                             <div></div>
                             <div></div>
@@ -57,16 +57,16 @@ class UserDialog extends Component{
                     <div className="login-pic">
                     </div>
                     <div className="content">
-                        <div className = "panes">
+                        <div className="panes">
                             <nav onChange={this.switch.bind(this)}>
                                 <label htmlFor="signUp" value={this.state.selected==='signUp'}>
-                                <input type='radio' id="signUp" checked={this.state.selected==='signUp'} 
+                                <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
                                 value="signUp"/>Sign Up</label>
                                 <label htmlFor="signIn" value={this.state.selected==='signIn'}>
-                                <input type='radio' id="signIn" checked={this.state.selected==='signIn'} 
+                                <input type='radio' id="signIn" defaultChecked={this.state.selected==='signIn'} 
                                 value="signIn"/>Sign In</label>
                             </nav>
-                            <form className="sign-up" value={this.state.selected==='signUp'} 
+                            <form className="sign-up" data={this.state.selected==='signUp'} 
                             onSubmit={this.signUp.bind(this)}> 
                                 <div className="row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
@@ -80,17 +80,17 @@ class UserDialog extends Component{
                                     <button type="submit">Sign Up</button>
                                 </div>
                             </form>
-                            <form className="sign-in" value={this.state.selected==='signIn'}
+                            <form className="sign-in" data={this.state.selected==='signIn'}
                             onSubmit={this.signIn.bind(this)}>
-                                <div className = "row">
+                                <div className="row">
                                     <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
                                     <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
                                 </div>
-                                <div className = "row">
+                                <div className="row">
                                     <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
                                     <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
                                 </div>
-                                <div className = "row action">
+                                <div className="row action">
                                     <button type="submit">Sign In</button>
                                 </div>
                             </form>
