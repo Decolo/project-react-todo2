@@ -13,6 +13,7 @@
 .App h1 {
     font-weight: 500;
     padding-top: 20px;
+    border: 1px solid red;
 }
 
 .App .input {

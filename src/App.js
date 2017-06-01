@@ -5,7 +5,8 @@ import './reset.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
-import {getCurrentUser} from './leanCloud'
+import {getCurrentUser} from './leanCloud';
+import {signOutRemote} from './leanCloud';
 
 
 /*----------测试代码----------*/
@@ -22,7 +23,7 @@ import {getCurrentUser} from './leanCloud'
 class App extends Component {
     constructor(props) {
         super(props)
-        this.id = 0                                         //初始化第一个todoItem的id从一开始，先设为0
+        this.itemId = 0                                     //初始化第一个todoItem的id从一开始，先设为0
                                                             // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
         this.state = {
               user: getCurrentUser() || {},                 //getCurrentUser()返回getUserFromAVUser(user)或者是null
@@ -30,10 +31,10 @@ class App extends Component {
               todoList:[]                                   //todoList中有四个属性，分别是id、itemContent、status、deleted
                                                             // 数据结构 {
                                                             //             todoList:[
-                                                            //               {id:..., itemContent:..., status:..., deleted:...},
-                                                            //               {id:..., itemContent:..., status:..., deleted:...},
-                                                            //               {id:..., itemContent:..., status:..., deleted:...}
-                                                            //               {id:..., itemContent:..., status:..., deleted:...}
+                                                            //               {itemId:..., itemContent:..., status:..., deleted:...},
+                                                            //               {itemId:..., itemContent:..., status:..., deleted:...},
+                                                            //               {itemId:..., itemContent:..., status:..., deleted:...}
+                                                            //               {itemId:..., itemContent:..., status:..., deleted:...}
                                                             //             ]
                                                             //               newTodo:'';每次新添加一个todo，就要在input中清空已经输入的内容
                                                             //         }
@@ -55,12 +56,15 @@ class App extends Component {
                 // console.log(this.state.newTodo)
             return ( 
                 <div className="App">
-                    <h1 className="title" > {this.state.user.username + "'s"|| 'My'} schedule</h1> 
+                    <h1 className="title" > {this.state.user.username + "'s"|| 'My'} schedule
+                        {this.state.user.id? <button onClick={this.signOut.bind(this)}>Sign Out</button> : null}
+                    </h1> 
                     <TodoInput content={ this.state.newTodo }
                     onChange={ this.changeTitle.bind(this) }
                     onSubmit={ this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
                     <ul className="todos-list">{todos}</ul>
-                    {this.state.user.id ? null : <UserDialog onSignUp={this.onSignUp.bind(this)}/>}{/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
+                    {this.state.user.id ? null : <UserDialog onSignUp={this.signUpOrSignIn.bind(this)}
+                    onSignIn={this.signUpOrSignIn.bind(this)}/>}{/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
                 </div>
             )
 
@@ -76,7 +80,7 @@ class App extends Component {
     addTodo(e) {
             // console.log(this) 新的方法，它的this需要通过bind重新绑定
             this.state.todoList.push({ //添加一个新的todo
-                id: this.idMaker(),
+                itemId: this.idMaker(),
                 itemContent: e.target.value,
                 status: null,
                 deleted: false
@@ -88,8 +92,8 @@ class App extends Component {
             // localStore.save('state', this.state) //储存此时的this。state
         }
     idMaker() {
-        this.id++
-        return this.id
+        this.itemId++
+        return this.itemId
     }
     /*------删--------*/
     delete(e, todo) {
@@ -111,9 +115,15 @@ class App extends Component {
         this.setState(this.state) //触发一次重绘
         // localStore.save('state', this.state) //储存此时的this。state
     }
-    onSignUp(user){
+    signUpOrSignIn(user){
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
-        stateCopy.user = user  // user = {id:xx, attr:xx}
+        stateCopy.user = user  // user = {id:xx, ...xx}
+        this.setState(stateCopy)
+    }
+    signOut(){
+        signOutRemote()
+        let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
+        stateCopy.user = {}
         this.setState(stateCopy)
     }
 }
