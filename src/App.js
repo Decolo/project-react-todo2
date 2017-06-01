@@ -4,36 +4,27 @@ import 'normalize.css';
 import './reset.css'
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
-import * as localStore from './localStore';
 
-import AV from 'leancloud-storage';
-
-const APP_ID = 'a9LoGqiGaA46Gt1fXMitwYHT-gzGzoHsz';
-const APP_KEY = 'W0JvqFX9sOXQovUeO59Vc3SS';
-AV.init({
-  appId: APP_ID,
-  appKey: APP_KEY
-});
 
 /*----------测试代码----------*/
-var TestObject = AV.Object.extend('TestObject');
-var testObject = new TestObject();
-testObject.save({
-  words: 'Hi'
-}).then(function(object) {
-  alert('LeanCloud Rocks!');
-})
+// var TestObject = AV.Object.extend('TestObject');
+// var testObject = new TestObject();
+// testObject.save({
+//   words: 'Hi'
+// }).then(function(object) {
+//   alert('LeanCloud Rocks!');
+// })
 /*----------测试代码----------*/
 
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.id = 0 //初始化第一个todoItem的id从一开始，先设为0
-                    // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
+        this.id = 0                                         //初始化第一个todoItem的id从一开始，先设为0
+                                                            // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
         this.state = {
               newTodo: '',
-              todoList: localStore.load('todoList') || []  //todoList中有四个属性，分别是id、itemContent、status、deleted
+              todoList:[]                                   //todoList中有四个属性，分别是id、itemContent、status、deleted
                                                             // 数据结构 {
                                                             //             todoList:[
                                                             //               {id:..., itemContent:..., status:..., deleted:...},
@@ -72,7 +63,7 @@ class App extends Component {
         }
     componentDidUpdate(){
         // localStore.save('state',this.state) 
-        localStore.save('todoList',this.state.todoList)
+        // localStore.save('todoList',this.state.todoList)
         // componentDidUpdate 会在组件更新之后调用。
         // 如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
     }
