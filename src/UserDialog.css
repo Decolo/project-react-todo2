@@ -1,33 +1,51 @@
+/*--------------------iconfont-------------*/
+
 @font-face {
     font-family: "iconfont";
-    src: url('./font/iconfont.eot?t=1496244833819');
+    src: url('./font/iconfont.eot?t=1496589594765');
     /* IE9*/
-    src: url('./font/iconfont.eot?t=1496244833819#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('./font/iconfont.woff?t=1496244833819') format('woff'), /* chrome, firefox */
-    url('./font/iconfont.ttf?t=1496244833819') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('./font/iconfont.svg?t=1496244833819#iconfont') format('svg');
+    src: url('./font/iconfont.eot?t=1496589594765#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./font/iconfont.woff?t=1496589594765') format('woff'), /* chrome, firefox */
+    url('./font/iconfont.ttf?t=1496589594765') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('./font/iconfont.svg?t=1496589594765#iconfont') format('svg');
     /* iOS 4.1- */
 }
 
 .iconfont {
     font-family: "iconfont" !important;
-    font-size: 16px;
+    font-size: 1.4rem;
+    font-weight: 500;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #aaa;
 }
 
-.icon-unie614:before {
-    content: "\e63a";
+.icon-dengchu:before {
+    content: "\e642";
 }
 
-.icon-yonghuming:before {
-    content: "\e66b";
+.icon-yonghu:before {
+    content: "\e61a";
+}
+
+.icon-youjian:before {
+    content: "\e622";
+}
+
+.icon-shanchu:before {
+    content: "\e62a";
+}
+
+.icon-bianji:before {
+    content: "\e62b";
+}
+
+.icon-suoding:before {
+    content: "\e634";
 }
 
 
-/*---------------------------icon----------------------------*/
+/*--------------------iconfont-------------*/
 
 .user-dialog-wrapper {
     position: fixed;
@@ -39,7 +57,9 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-    background-image: url('./img/bp.png')
+    background-image: url('./img/bp.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .user-dialog {
@@ -48,7 +68,7 @@
     min-width: 500px;
     min-height: 300px;
     margin-top: 30px;
-    background-color: white;
+    background-color: #fffbd2;
     border-radius: 10px;
     position: relative;
 }
@@ -81,7 +101,7 @@
 .user-dialog-wrapper .bubble .wrapper div:nth-of-type(1) {
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: #fffbd2;
     border-radius: 15px;
     position: absolute;
     left: 0;
@@ -91,7 +111,7 @@
 .user-dialog-wrapper .bubble .wrapper div:nth-of-type(2) {
     width: 12px;
     height: 12px;
-    background-color: white;
+    background-color: #fffbd2;
     border-radius: 6px;
     position: absolute;
     right: 8px;
@@ -101,7 +121,7 @@
 .user-dialog-wrapper .bubble .wrapper div:nth-of-type(3) {
     width: 6px;
     height: 6px;
-    background-color: white;
+    background-color: #fffbd2;
     border-radius: 3px;
     position: absolute;
     left: 4px;
@@ -125,7 +145,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #666;
     font-size: 1rem;
 }
 
@@ -138,7 +157,7 @@
 .user-dialog-wrapper .user-dialog .content .panes nav>label {
     display: inline-block;
     padding: 10px 10px 20px 10px;
-    color: #e4e4e4;
+    color: #cbc8bd;
     cursor: pointer;
 }
 
@@ -147,12 +166,13 @@
 }
 
 .user-dialog-wrapper .user-dialog .content .panes nav>label[data=true] {
-    color: #666;
     font-size: 1.2rem;
+    color: #595a6a;
+    font-weight: 600;
 }
 
 .user-dialog-wrapper .user-dialog .content .panes form .row {
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid #aca9a1;
     width: 90%;
     padding-top: 4px;
     padding-bottom: 8px;
@@ -162,7 +182,6 @@
 }
 
 .user-dialog-wrapper .user-dialog .content .panes form .row label {
-    color: #666;
     flex-grow: 1;
     text-align: left;
 }
@@ -173,6 +192,7 @@
     color: inherit;
     font-size: 1.2rem;
     outline: none;
+    background-color: #fffbd2;
 }
 
 .user-dialog-wrapper .user-dialog .content .panes form .action {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'normalize.css';
-import './reset.css'
+import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
@@ -28,8 +28,8 @@ class App extends Component {
         this.state = {
               user: getCurrentUser() || {},                 //getCurrentUser()返回getUserFromAVUser(user)或者是null
               newTodo: '',
-              todoList:[]                                   //todoList中有四个属性，分别是id、itemContent、status、deleted
-                                                            // 数据结构 {
+              todoList:[],                                  //todoList中有四个属性，分别是id、itemContent、status、deleted
+              isInputShowed: false                          // 数据结构 {
                                                             //             todoList:[
                                                             //               {itemId:..., itemContent:..., status:..., deleted:...},
                                                             //               {itemId:..., itemContent:..., status:..., deleted:...},
@@ -45,10 +45,12 @@ class App extends Component {
                 .filter((item) => { return !item.deleted })
                 .map((item, index) =>
                     <li key={ index } >
+                        <h4 className='date'>{dateString()}</h4>
                         <TodoItem todo={item}
                         index={ 'item' + index }
                         onToggle={ this.toggle.bind(this) }
                         onDelete={ this.delete.bind(this) }
+                        onEdite={this.edite.bind(this)}
                         /> 
                     </li>
                 )
@@ -56,13 +58,22 @@ class App extends Component {
                 // console.log(this.state.newTodo)
             return ( 
                 <div className="App">
-                    <h1 className="title" > {this.state.user.username + "'s"|| 'My'} schedule
-                        {this.state.user.id? <button onClick={this.signOut.bind(this)}>Sign Out</button> : null}
-                    </h1> 
-                    <TodoInput content={ this.state.newTodo }
-                    onChange={ this.changeTitle.bind(this) }
-                    onSubmit={ this.addTodo.bind(this) }/>  {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
+                    <div className="first-row">
+                        <span className="title" > ToDoList</span>
+                        {this.state.user.id ? <a href="#" className="sign-out" onClick={this.signOut.bind(this)}><i className="iconfont icon-dengchu"></i></a> : null} 
+                    </div>
+                    <div className="input-todo">
+                        {!this.state.isInputShowed ? <a href="#" onClick={this.showTodoInput.bind(this)}>Add</a> : null}
+                        {this.state.isInputShowed ? <a href="#" onClick={this.showTodoInput.bind(this)}>Close</a> : null}
+                        {this.state.isInputShowed ? <TodoInput content={ this.state.newTodo }
+                        onChange={ this.changeTitle.bind(this) }
+                        onSubmit={ this.addTodo.bind(this) }/> : null} {/*见鬼了， 这一段拷贝来显示正常， 自己写的就只能一个一个的输入*/} 
+                    </div>
                     <ul className="todos-list">{todos}</ul>
+                    <div className="last-row">
+                        <div className="todo">todo</div>
+                        <div className="done">done</div>
+                    </div>
                     {this.state.user.id ? null : <UserDialog onSignUp={this.signUpOrSignIn.bind(this)}
                     onSignIn={this.signUpOrSignIn.bind(this)}/>}{/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
                 </div>
@@ -76,6 +87,11 @@ class App extends Component {
         // 如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
     }
 
+    showTodoInput(){
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.isInputShowed = !stateCopy.isInputShowed
+        this.setState(stateCopy)
+    }
     /*-------增-------*/
     addTodo(e) {
             // console.log(this) 新的方法，它的this需要通过bind重新绑定
@@ -83,11 +99,12 @@ class App extends Component {
                 itemId: this.idMaker(),
                 itemContent: e.target.value,
                 status: null,
-                deleted: false
+                deleted: false,
             })
             this.setState({
                 newTodo: '',
-                todoList: this.state.todoList
+                todoList: this.state.todoList,
+                isInputShowed: false  
             })
             // localStore.save('state', this.state) //储存此时的this。state
         }
@@ -109,17 +126,23 @@ class App extends Component {
             })
             // localStore.save('state', this.state) //储存此时的this。state
         }
+    edite(e,todo){
+        todo.itemContent = e.target.value
+        this.setState(this.state)
+    }
     /*-------查-------*/
     toggle(e, todo) {
         todo.status = todo.status === 'completed' ? '' : 'completed'
         this.setState(this.state) //触发一次重绘
         // localStore.save('state', this.state) //储存此时的this。state
     }
+    /*-------注册与登入-------*/
     signUpOrSignIn(user){
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
         stateCopy.user = user  // user = {id:xx, ...xx}
         this.setState(stateCopy)
     }
+    /*-------登出-------*/
     signOut(){
         signOutRemote()
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
@@ -130,6 +153,12 @@ class App extends Component {
 
 export default App;
 
+function dateString(){
+    let dateNow = new Date()
+    let dayArr = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+    let monthArr = ['Jaunary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    return `${dayArr[dateNow.getDay()]}  ${dateNow.getDate()}th  ${monthArr[dateNow.getMonth()]}`
+}
 //1.react一切的变化都依靠setState去实现，state作为一个对象，它记录了初始状态的需要的一些参数。
 //2."增"添加一个todo的Item，监听todoInput，一旦点击的是enter键，执行addTodo方法，在this.state.todoList中添加一个新的对象。再将this.state
 //  这个对象交给this.setState这个方法去执行，触发重绘。新增加的todoItem就会被渲染到页面上。

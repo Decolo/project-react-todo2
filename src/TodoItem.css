@@ -1,0 +1,140 @@
+.App .todos-list {
+    padding-left: 6px;
+    padding-right: 10px;
+    /*padding-top: 20px;
+    padding-bottom: 20px;*/
+    font-size: 1.2rem;
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+    max-height: 260px;
+    overflow: auto;
+    border-radius: 8px;
+}
+
+.App .todos-list>li {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f5d7cf;
+}
+
+.App .todos-list>li>.date {
+    font-size: 10px;
+}
+
+.App .todos-list>li>div {
+    display: flex;
+    width: 100%;
+    position: relative;
+    /*outline: 1px solid red;*/
+    align-items: flex-end;
+}
+
+.App .todos-list>li>div>input {
+    display: none;
+}
+
+.App .todos-list>li>div>label {
+    margin-left: 10px;
+    width: 1.2rem;
+    display: block;
+    height: 1.2rem;
+    border-radius: 20px;
+    border: 4px solid #ff4848;
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.App .todos-list>li>div>input:checked+.check-box:before {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    content: '\2714';
+    color: #ff4848;
+    line-height: 1.2rem;
+    font-size: 1.6rem;
+    z-index: 100;
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: #f5d7cf;
+}
+
+.App .todos-list>li>div>input:checked~.item-content {
+    opacity: 0.5
+}
+
+.App .todos-list>li>div>.item-content {
+    width: 80%;
+    /*height: 3rem;*/
+    margin-left: 30px;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.App .todos-list>li>div>.item-content>p {
+    display: block;
+    width: 100%;
+    padding-left: 0.4rem
+}
+
+.App .todos-list>li>div>.item-content .edit-box {
+    width: 100%;
+    height: 2rem;
+    outline: none;
+    border-width: 0;
+    padding: 0;
+    margin: 0;
+    background-color: #fff5e1;
+    border-radius: 4px;
+    color: #666;
+}
+
+.App .todos-list>li>div>.btn-delete {
+    height: 2rem;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.App .todos-list>li>div>.btn-delete>.icon-bianji {
+    font-size: 1.6rem;
+    color: #ff4848;
+    font-weight: 500;
+}
+
+.App .todos-list>li>div>.btn-delete>.icon-bianji {
+    font-size: 1.6rem;
+    color: #ff4848;
+    font-weight: 500;
+}
+
+.App .todos-list>li>div>.btn-edit>.icon-shanchu {
+    font-size: 1.6rem;
+    color: #ff4848;
+    font-weight: 500;
+}
+
+.App .todos-list>li>div>.btn-edit>.icon-shanchu:hover {
+    color: #ff716a;
+    font-weight: 600;
+}
+
+.App .todos-list>li>div>.btn-delete>.icon-bianji:hover {
+    color: #ff716a;
+    font-weight: 600;
+}
+
+.App .todos-list>li>div>.btn-edit {
+    height: 2rem;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-left: 10px;
+}

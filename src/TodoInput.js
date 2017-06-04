@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
-
+import './TodoInput.css';
 class TodoInput extends Component{
     constructor(props){
         super(props)
         console.log(this)
     }
     render(){
-        return(<input type="text" className="input" placeholder="type here"
-            value={this.props.content} 
-            onChange={this.changeTitle.bind(this)}
-            onKeyPress={this.submit.bind(this)} />)
-    }//监听了按键事件，用value无效，改用defaultVaule
+        return(
+        <div className="input-box">
+            <input type="text" className="input"
+                value={this.props.content} 
+                onChange={this.changeTitle.bind(this)}
+                onKeyPress={this.submit.bind(this)} />
+        </div>
+        )
+    }//监听了按键事件，用value无效，改用defaultValue
     submit(e){
         if(e.key === 'Enter'){
            if(e.target.value === ''){

@@ -96,11 +96,11 @@ class UserDialog extends Component{
                             <form className="sign-up" data={this.state.selected==='signUp'} 
                             onSubmit={this.signUp.bind(this)}> 
                                 <div className="row">
-                                    <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
+                                    <label htmlFor="username"><i className="iconfont icon-yonghu"></i></label>
                                     <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
                                 </div>
                                 <div className="row">
-                                    <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
+                                    <label htmlFor="password"><i className="iconfont icon-suoding"></i></label>
                                     <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
                                 </div>
                                 <div className="row action">
@@ -110,11 +110,11 @@ class UserDialog extends Component{
                             <form className="sign-in" data={this.state.selected==='signIn'}
                             onSubmit={this.signIn.bind(this)}>
                                 <div className="row">
-                                    <label htmlFor="username"><i className="iconfont icon-yonghuming"></i></label>
+                                    <label htmlFor="username"><i className="iconfont icon-yonghu"></i></label>
                                     <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
                                 </div>
                                 <div className="row">
-                                    <label htmlFor="password"><i className="iconfont icon-unie614"></i></label>
+                                    <label htmlFor="password"><i className="iconfont icon-suoding"></i></label>
                                     <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
                                 </div>
                                 <div className="row action">
