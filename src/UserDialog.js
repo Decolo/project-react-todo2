@@ -85,14 +85,7 @@ class UserDialog extends Component{
                     </div>
                     <div className="content">
                         <div className="panes">
-                            <nav onChange={this.switch.bind(this)}>
-                                <label htmlFor="signUp" data={this.state.selected==='signUp'}>
-                                <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
-                                value="signUp"/>Sign Up</label>
-                                <label htmlFor="signIn" data={this.state.selected==='signIn'}>
-                                <input type='radio' id="signIn" defaultChecked={this.state.selected==='signIn'} 
-                                value="signIn"/>Sign In</label>
-                            </nav>
+                            <h1>Weclcome to TodoList</h1>
                             <form className="sign-up" data={this.state.selected==='signUp'} 
                             onSubmit={this.signUp.bind(this)}> 
                                 <div className="row">
@@ -121,6 +114,14 @@ class UserDialog extends Component{
                                     <button type="submit">Sign In</button>
                                 </div>
                             </form>
+                            <nav onChange={this.switch.bind(this)}>
+                                <label htmlFor="signUp" data={this.state.selected==='signUp'}>
+                                <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
+                                value="signUp"/><span>Need an account</span> Sign Up</label>
+                                <label htmlFor="signIn" data={this.state.selected==='signIn'}>
+                                <input type='radio' id="signIn" defaultChecked={this.state.selected==='signIn'} 
+                                value="signIn"/><span>Already have an account?</span> Sign In</label>
+                            </nav>
                         </div>
                     </div>
                 </div>
