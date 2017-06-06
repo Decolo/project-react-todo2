@@ -143,6 +143,9 @@
     float: left;
 }
 
+
+/*-------------------------user-dialog-wrapper------------------*/
+
 .user-dialog-wrapper .user-dialog .content {
     height: 100%;
     width: 55%;
@@ -153,13 +156,16 @@
     font-size: 1rem;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes {
+.user-dialog-wrapper .user-dialog .content .sign-tab {
     /*border: 1px solid red;*/
     width: 80%;
     text-align: center;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes nav>label {
+
+/*------------------nav------------------*/
+
+.user-dialog-wrapper .user-dialog .content .sign-tab nav>label {
     display: inline-block;
     padding: 10px 10px 20px 10px;
     color: #aca9a1;
@@ -167,22 +173,25 @@
     display: none;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes nav>label>input {
+.user-dialog-wrapper .user-dialog .content .sign-tab nav>label>input {
     display: none;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes nav>label>span {
+.user-dialog-wrapper .user-dialog .content .sign-tab nav>label>span {
     font-size: 0.6rem;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes nav>label[data=false] {
+.user-dialog-wrapper .user-dialog .content .sign-tab nav>label[data=false] {
     font-size: 0.8rem;
-    color: #ff6d6d;
+    color: inherit;
     font-weight: 600;
     display: block;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .row {
+
+/*------------------nav------------------*/
+
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row {
     width: 90%;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -191,12 +200,12 @@
     margin-top: 6px;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .row label {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row label {
     flex-grow: 1;
     text-align: left;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .row input {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row input {
     border: none;
     border-radius: 10px;
     flex-grow: 4;
@@ -206,25 +215,33 @@
     height: 1.8rem;
     background-color: rgb(138, 202, 200);
     padding-left: 10px;
+    color: white;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .row .icon-yonghu {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row .icon-yonghu {
     color: rgb(138, 202, 200);
     font-weight: 500;
     font-size: 1.6rem;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .row .icon-suoding {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row .icon-suoding {
     color: rgb(138, 202, 200);
     font-weight: 500;
     font-size: 1.6rem;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .action {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .row .icon-youjian {
+    color: rgb(138, 202, 200);
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.user-dialog-wrapper .user-dialog .content .sign-tab form .action {
     border-bottom: none;
+    width: 100%
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form .action button {
+.user-dialog-wrapper .user-dialog .content .sign-tab form .action button {
     box-sizing: content-box;
     line-height: 30px;
     display: block;
@@ -241,6 +258,76 @@
     font-weight: 600;
 }
 
-.user-dialog-wrapper .user-dialog .content .panes form[data=false] {
-    display: none;
+.user-dialog-wrapper .user-dialog .content .sign-tab form .forget-password {
+    font-size: .6rem;
+    display: block;
+    font-weight: 600;
+    color: #ff6d6d;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab h3 {
+    font-size: 1.6rem;
+    font-weight: 600px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab p {
+    font-size: 0.8rem;
+    padding: 5px 10px 10px 10px;
+    text-align: left;
+    color: rgb(138, 202, 200);
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .row {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .row label {
+    height: 1.8rem;
+    padding-right: 10px;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .row .icon-youjian {
+    color: rgb(138, 202, 200);
+    font-weight: 500;
+    font-size: 1.6rem;
+    position: relative;
+    top: 2px;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .row input {
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    height: 1.8rem;
+    background-color: rgb(138, 202, 200);
+    padding-left: 10px;
+    color: white;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .actions {
+    text-align: center;
+    padding-right: 24px;
+}
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .actions button {
+    box-sizing: content-box;
+    line-height: 30px;
+    display: block;
+    width: 120px;
+    height: 30px;
+    border-radius: 30px;
+    border: 2px solid #ff6d6d;
+    background-color: #fffbd2;
+    color: #ff6d6d;
+    margin: 0 auto;
+    margin-top: 20px;
+    cursor: pointer;
+    outline: none;
+    font-weight: 600;
 }

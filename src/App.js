@@ -41,6 +41,7 @@ class App extends Component {
             }
     }
     render() {
+            console.log(this.state)
             let todos = this.state.todoList
                 .filter((item) => { return !item.deleted })
                 .map((item, index) =>
@@ -148,6 +149,7 @@ class App extends Component {
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
         stateCopy.user = {}
         this.setState(stateCopy)
+        
     }
 }
 

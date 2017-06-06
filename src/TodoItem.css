@@ -77,6 +77,7 @@
     margin-left: 30px;
     word-wrap: break-word;
     word-break: normal;
+    font-weight: 600;
 }
 
 .App .todos-list>li>div>.item-content>p {
