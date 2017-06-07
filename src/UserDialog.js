@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './UserDialog.css';
 import {signUpRemote,signInRemote,sendPasswordResetEmail} from './leanCloud';
+import {deepCopyByJson} from './deepCopyByJson';
 
 class UserDialog extends Component{
     constructor(props){
@@ -21,9 +22,25 @@ class UserDialog extends Component{
         })
     }
     showForgetPassword(){
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        let stateCopy = deepCopyByJson(this.state)
         stateCopy.selectedTab = 'forgotPassword'
         this.setState(stateCopy)
+    }
+    showSignUpTab(){
+        let stateCopy = deepCopyByJson(this.state)
+        stateCopy.selected = 'signUp'
+        stateCopy.selectedTab = 'signInOrSignUp'
+        this.setState(stateCopy)
+    }
+    showSignInTab(e){
+        if(this.state.formData.email){
+            let stateCopy = deepCopyByJson(this.state)
+            stateCopy.selected = 'signIn'
+            stateCopy.selectedTab = 'signInOrSignUp'
+            this.setState(stateCopy)
+        }else{
+            alert('Confirm Email Address')
+        }
     }
     signIn(e){
         e.preventDefault()
@@ -35,7 +52,7 @@ class UserDialog extends Component{
         let error = (error)=>{
             switch(error.code){
                 case 210:
-                    alert('用户名与密码不匹配')
+                    alert('The username and password do not match')
                 break
             default:
                 alert(error)
@@ -63,7 +80,7 @@ class UserDialog extends Component{
         signUpRemote(username, password,email,success, error) //import {signUpRemote,signInRemote} from './leanCloud'
     }
     changeFormData(key,e){
-        let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON完成深拷贝
+        let stateCopy = deepCopyByJson(this.state)
         stateCopy.formData[key] = e.target.value
         this.setState(stateCopy)
     }
@@ -71,12 +88,7 @@ class UserDialog extends Component{
         e.preventDefault()
         sendPasswordResetEmail(this.state.formData.email) 
     }
-    returnSignIn(){
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
-        stateCopy.selected = 'signIn'
-        stateCopy.selectedTab = 'signInOrSignUp'
-        this.setState(stateCopy)
-    }
+    
     render(){
          let signInForm = (<form className="sign-in" onSubmit={this.signIn.bind(this)}>
                                 <div className="row">
@@ -136,7 +148,8 @@ class UserDialog extends Component{
                         onChange={this.changeFormData.bind(this, 'email')}/>
                     </div>
                     <div className="row actions">
-                    <button type="submit" onClick={this.returnSignIn.bind(this)}>Send E-mails</button>
+                    <button type="submit" onClick={this.showSignInTab.bind(this)}>Send E-mails</button>
+                    <a href="#" className="back-signup" onClick={this.showSignUpTab.bind(this)}>Back to Sign Up</a>
                     </div>
                 </form>
             </div>

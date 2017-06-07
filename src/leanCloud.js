@@ -47,9 +47,9 @@ export function signInRemote(username, password, successFn, errorFn) {
         let query = new AV.Query('_User')
         query.get(loginedUser.id).then(function(_user){
             //_user就是id为loginedUser.id的实例对象
-            console.log(_user)
+            // console.log(_user)
             let currentUser = getUserFromAVUser(_user)
-            console.log(currentUser)
+            // console.log(currentUser)
             successFn.call(null,currentUser)
         },function(error){
             console.error(error)
@@ -97,7 +97,7 @@ export function updataData(data) {
             //_user就是id为cachingUser.id下的实例对象
             _user.set('todoList',data)
             _user.save().then(function(_user){
-                console.log(_user)
+                // console.log(_user)
                 let currentUser = getUserFromAVUser(_user)
                 console.log(currentUser)
             },function(error){
@@ -114,9 +114,9 @@ export function getDataForMount(successFn) {
         let query = new AV.Query('_User');
         query.get(cachingUser.id).then(function(_user){
             //_user就是id为cachingUser.id的实例对象
-            console.log(_user)
+            // console.log(_user)
             let currentUser = getUserFromAVUser(_user)
-            console.log(currentUser)
+            // console.log(currentUser)
             successFn.call(null,currentUser)
         }, function(error){
             console.log(error)

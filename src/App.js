@@ -6,12 +6,12 @@ import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
 import {signOutRemote, getCurrentUser,updataData,getDataForMount} from './leanCloud';
+import {deepCopyByJson} from './deepCopyByJson';
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.itemId = 0;
-        console.log(getCurrentUser())                                     //初始化第一个todoItem的id从一开始，先设为0
+        // console.log(getCurrentUser())                                     
         this.state = {
               user: getCurrentUser() || {},                 //getCurrentUser()返回缓存的user或者是null
               newTodo: '',
@@ -29,8 +29,8 @@ class App extends Component {
     }
     componentWillMount(){
         let success = (user)=>{
-            console.log(user)
-            let stateCopy = JSON.parse(JSON.stringify(this.state))
+            // console.log(user)
+            let stateCopy = deepCopyByJson(this.state)
             stateCopy.todoList = user.todoList
             this.setState(stateCopy)
         }
@@ -90,7 +90,7 @@ class App extends Component {
     
     /*-------增-------*/
     showTodoInput(){
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        let stateCopy = deepCopyByJson(this.state)
         stateCopy.isInputShowed = !stateCopy.isInputShowed
         this.setState(stateCopy)
     }
@@ -102,8 +102,9 @@ class App extends Component {
     }
     addTodo(e) {
          //添加一个新的todo
+        let lengthOfList = this.state.todoList.length
         this.state.todoList.push({
-            itemId: this.idMaker(),
+            itemId: lengthOfList++,
             itemContent: e.target.value,
             status: null,
             deleted: false,
@@ -114,54 +115,48 @@ class App extends Component {
             isInputShowed: false  
         })
         updataData(this.state.todoList)
-        console.log('update')
-        }
-    idMaker() {
-        this.itemId++
-        return this.itemId
     }
     /*------删--------*/
     delete(e, todo) {
         todo.deleted = true
-        this.setState(this.state)
+        let stateCopy = deepCopyByJson(this.state)
+        this.setState(stateCopy)
         updataData(this.state.todoList)
-        console.log('update')   
     }
     /*-------改-------*/
     edite(e,todo){
         todo.itemContent = e.target.value
-        this.setState(this.state)
+        let stateCopy = deepCopyByJson(this.state)
+        this.setState(stateCopy)
         updataData(this.state.todoList)
-        console.log('update') 
     }
     /*-------查-------*/
     toggle(e, todo) {
         todo.status = todo.status === 'completed' ? '' : 'completed'
-        this.setState(this.state) 
+        let stateCopy = deepCopyByJson(this.state)
+        this.setState(stateCopy)
         updataData(this.state.todoList)
-        console.log('update')
     }
     /*-------注册与登入-------*/
     signUpOrSignIn(user){
-        let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
-        stateCopy.user = user  // user = {id:xx, ...xx}
-        console.log(user)
+        let stateCopy = deepCopyByJson(this.state)
+        stateCopy.user = user 
+        // console.log(user)
         stateCopy.todoList = user.todoList
-        console.log(stateCopy)
+        // console.log(stateCopy)
         this.setState(stateCopy)
     }
 
     /*-------登出-------*/
     signOut(){
         signOutRemote()
-        let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
+        let stateCopy = deepCopyByJson(this.state)
         stateCopy.user = {}
         this.setState(stateCopy)
     }
 }
 
 export default App;
-
 function dateString(){
     let dateNow = new Date()
     let dayArr = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']

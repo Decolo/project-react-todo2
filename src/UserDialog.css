@@ -331,3 +331,10 @@
     outline: none;
     font-weight: 600;
 }
+
+.user-dialog-wrapper .user-dialog .content .forget-tab form .actions .back-signup {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #ff6d6d;
+    text-decoration: underline;
+}
