@@ -5,30 +5,17 @@ import './reset.css';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import UserDialog from './UserDialog';
-import {getCurrentUser} from './leanCloud';
-import {signOutRemote} from './leanCloud';
-
-
-/*----------测试代码----------*/
-// var TestObject = AV.Object.extend('TestObject');
-// var testObject = new TestObject();
-// testObject.save({
-//   words: 'Hi'
-// }).then(function(object) {
-//   alert('LeanCloud Rocks!');
-// })
-/*----------测试代码----------*/
-
+import {signOutRemote, getCurrentUser,updataData,getDataForMount} from './leanCloud';
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.itemId = 0                                     //初始化第一个todoItem的id从一开始，先设为0
-                                                            // this.state = localStore.load('state') || { newTodo: '', todoList: [] }
+        this.itemId = 0;
+        console.log(getCurrentUser())                                     //初始化第一个todoItem的id从一开始，先设为0
         this.state = {
-              user: getCurrentUser() || {},                 //getCurrentUser()返回getUserFromAVUser(user)或者是null
+              user: getCurrentUser() || {},                 //getCurrentUser()返回缓存的user或者是null
               newTodo: '',
-              todoList:[],                                  //todoList中有四个属性，分别是id、itemContent、status、deleted
+              todoList: [],                                 //todoList中有四个属性，分别是id、itemContent、status、deleted
               isInputShowed: false                          // 数据结构 {
                                                             //             todoList:[
                                                             //               {itemId:..., itemContent:..., status:..., deleted:...},
@@ -40,8 +27,16 @@ class App extends Component {
                                                             //         }
             }
     }
+    componentWillMount(){
+        let success = (user)=>{
+            console.log(user)
+            let stateCopy = JSON.parse(JSON.stringify(this.state))
+            stateCopy.todoList = user.todoList
+            this.setState(stateCopy)
+        }
+        getDataForMount(success)
+    }
     render() {
-            console.log(this.state)
             let todos = this.state.todoList
                 .filter((item) => { return !item.deleted })
                 .map((item, index) =>
@@ -55,13 +50,12 @@ class App extends Component {
                         /> 
                     </li>
                 )
-                // console.log(todos)
-                // console.log(this.state.newTodo)
             return ( 
                 <div className="App">
                     <div className="first-row">
                         <span className="title" > ToDoList</span>
-                        {this.state.user.id ? <a href="#" className="sign-out" onClick={this.signOut.bind(this)}><i className="iconfont icon-dengchu"></i></a> : null} 
+                        {this.state.user.id ? <a href="#" className="sign-out" onClick={this.signOut.bind(this)}>
+                        <i className="iconfont icon-dengchu"></i></a> : null} 
                     </div>
                     <div className="input-todo">
                         {!this.state.isInputShowed ? <a href="#" onClick={this.showTodoInput.bind(this)}>Add</a> : null}
@@ -75,39 +69,52 @@ class App extends Component {
                         <div className="todo">todo</div>
                         <div className="done">done</div>
                     </div>
-                    {this.state.user.id ? null : <UserDialog onSignUp={this.signUpOrSignIn.bind(this)}
-                    onSignIn={this.signUpOrSignIn.bind(this)}/>}{/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
+                    {this.state.user.id ? null : 
+                        <UserDialog 
+                        onSignUp={this.signUpOrSignIn.bind(this)}
+                        onSignIn={this.signUpOrSignIn.bind(this)}
+                        />
+                    }
+                    {/*有id了代表注册成功，返回第二个表达式关闭Userdialog；否则返回第三个表达式显示Userdialog*/}
                 </div>
             )
 
-        }
-    componentDidUpdate(){
-        // localStore.save('state',this.state) 
-        // localStore.save('todoList',this.state.todoList)
-        // componentDidUpdate 会在组件更新之后调用。
-        // 如果我们默认「组件更新」等价于「数据更新」，那么就可以把 localStore.save('todoList', this.state.todoList) 写在这个钩子里。
     }
 
+    // componentDidUpdate(){
+    //     updateData.call(this)
+    //     // //数据的保存，保存了所有的变动
+    //     // updateData(this.state.todoList)
+    //     // // componentDidUpdate 会在组件更新之后调用。
+    // }
+    
+    /*-------增-------*/
     showTodoInput(){
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.isInputShowed = !stateCopy.isInputShowed
         this.setState(stateCopy)
     }
-    /*-------增-------*/
+    changeTitle(e) {
+        this.setState({
+            newTodo: e.target.value,
+            todoList: this.state.todoList
+        })
+    }
     addTodo(e) {
-            // console.log(this) 新的方法，它的this需要通过bind重新绑定
-            this.state.todoList.push({ //添加一个新的todo
-                itemId: this.idMaker(),
-                itemContent: e.target.value,
-                status: null,
-                deleted: false,
-            })
-            this.setState({
-                newTodo: '',
-                todoList: this.state.todoList,
-                isInputShowed: false  
-            })
-            // localStore.save('state', this.state) //储存此时的this。state
+         //添加一个新的todo
+        this.state.todoList.push({
+            itemId: this.idMaker(),
+            itemContent: e.target.value,
+            status: null,
+            deleted: false,
+        })
+        this.setState({
+            newTodo: '',
+            todoList: this.state.todoList,
+            isInputShowed: false  
+        })
+        updataData(this.state.todoList)
+        console.log('update')
         }
     idMaker() {
         this.itemId++
@@ -115,41 +122,41 @@ class App extends Component {
     }
     /*------删--------*/
     delete(e, todo) {
-            todo.deleted = true
-            this.setState(this.state)
-            // localStore.save('state', this.state) //储存此时的this。state
-        }
+        todo.deleted = true
+        this.setState(this.state)
+        updataData(this.state.todoList)
+        console.log('update')   
+    }
     /*-------改-------*/
-    changeTitle(e) {
-            this.setState({
-                newTodo: e.target.value,
-                todoList: this.state.todoList
-            })
-            // localStore.save('state', this.state) //储存此时的this。state
-        }
     edite(e,todo){
         todo.itemContent = e.target.value
         this.setState(this.state)
+        updataData(this.state.todoList)
+        console.log('update') 
     }
     /*-------查-------*/
     toggle(e, todo) {
         todo.status = todo.status === 'completed' ? '' : 'completed'
-        this.setState(this.state) //触发一次重绘
-        // localStore.save('state', this.state) //储存此时的this。state
+        this.setState(this.state) 
+        updataData(this.state.todoList)
+        console.log('update')
     }
     /*-------注册与登入-------*/
     signUpOrSignIn(user){
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
         stateCopy.user = user  // user = {id:xx, ...xx}
+        console.log(user)
+        stateCopy.todoList = user.todoList
+        console.log(stateCopy)
         this.setState(stateCopy)
     }
+
     /*-------登出-------*/
     signOut(){
         signOutRemote()
         let stateCopy = JSON.parse(JSON.stringify(this.state)) //深拷贝
         stateCopy.user = {}
         this.setState(stateCopy)
-        
     }
 }
 

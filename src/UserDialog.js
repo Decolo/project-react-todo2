@@ -47,7 +47,6 @@ class UserDialog extends Component{
     signUp(e){
         e.preventDefault()
         let {username,password,email} = this.state.formData
-        console.log(username)
         let success = (user)=>{
             this.props.onSignUp.call(null, user) //传入一个user
         }
