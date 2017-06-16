@@ -23,12 +23,11 @@ export function signUpRemote(username, password, email, successFn, errorFn) {
         query.get(loginedUser.id).then(function(_user){
             //_user就是id为currentUser.id的实例对象
             _user.set('todoList',[])
-            //为新的用户设置todolist为空数组
+            //为新的用户设置属性todolist的值为空数组
             _user.save().then(function(_user){
-                //得到有用的user内容
-                // console.log(_user)
+                //得到需要的_user中的内容
                 let currentUser = getUserFromAVUser(_user)
-                // console.log(currentUser)
+                //回调执行
                 successFn.call(null, currentUser)
             },function(error){
                 console.error(error)
@@ -45,11 +44,11 @@ export function signInRemote(username, password, successFn, errorFn) {
     AV.User.logIn(username, password).then(function(loginedUser) {
         //获取该user的实例
         let query = new AV.Query('_User')
+        //_user就是id为loginedUser.id的实例对象
         query.get(loginedUser.id).then(function(_user){
-            //_user就是id为loginedUser.id的实例对象
-            // console.log(_user)
+            //获取_user中我们需要的数据
             let currentUser = getUserFromAVUser(_user)
-            // console.log(currentUser)
+            //执行回调
             successFn.call(null,currentUser)
         },function(error){
             console.error(error)
@@ -89,15 +88,15 @@ function getUserFromAVUser(AVUser) {
 
 export function updataData(data) {
     if (getCurrentUser()) {
-        //获取当前的user
+        //获取当前leanCloud中缓存的用户数据
         let cachingUser = getCurrentUser();
         //查询user实例
         let query = new AV.Query('_User');
         query.get(cachingUser.id).then(function(_user){
             //_user就是id为cachingUser.id下的实例对象
             _user.set('todoList',data)
+            //将每一次操作变动的数据，保存到对应的_user实例中
             _user.save().then(function(_user){
-                // console.log(_user)
                 let currentUser = getUserFromAVUser(_user)
                 console.log(currentUser)
             },function(error){
@@ -108,15 +107,16 @@ export function updataData(data) {
         })
     }
 }
+
 export function getDataForMount(successFn) {
+    //判断当前leanCloud端是否有缓存
     if (getCurrentUser()) {
         let cachingUser = getCurrentUser()
         let query = new AV.Query('_User');
+        //获取当前的_user实例对象
         query.get(cachingUser.id).then(function(_user){
-            //_user就是id为cachingUser.id的实例对象
-            // console.log(_user)
             let currentUser = getUserFromAVUser(_user)
-            // console.log(currentUser)
+            //执行回调
             successFn.call(null,currentUser)
         }, function(error){
             console.log(error)

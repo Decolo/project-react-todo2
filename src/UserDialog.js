@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './UserDialog.css';
 import {signUpRemote,signInRemote,sendPasswordResetEmail} from './leanCloud';
 import {deepCopyByJson} from './deepCopyByJson';
-
+import SignUpForm from './signUpForm';  //SignUpForm组件
 class UserDialog extends Component{
     constructor(props){
         super(props)
@@ -104,27 +104,14 @@ class UserDialog extends Component{
                                 </div>
                                 <a href="#" onClick={this.showForgetPassword.bind(this)} className="forget-password">Forget password</a>
                             </form>);
-        let signUpForm =(<form className="sign-up" onSubmit={this.signUp.bind(this)}> 
-                                <div className="row">
-                                    <label htmlFor="mail"><i className="iconfont icon-youjian"></i></label>
-                                    <input type="text" id="mail" onChange={this.changeFormData.bind(this,'email')}/>
-                                </div>
-                                <div className="row">
-                                    <label htmlFor="username"><i className="iconfont icon-yonghu"></i></label>
-                                    <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
-                                </div>
-                                <div className="row">
-                                    <label htmlFor="password"><i className="iconfont icon-suoding"></i></label>
-                                    <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
-                                </div>
-                                <div className="row action">
-                                    <button type="submit">Sign Up</button>
-                                </div>
-                            </form>)
+        
         let signInOrSignUpTab = (
             <div className="sign-tab">
                 <h1>Weclcome to TodoList</h1>
-                {this.state.selected === 'signUp' ? signUpForm : null}
+                {/*SignUpForm组件*/}
+                {this.state.selected === 'signUp' ? <SignUpForm onChange={this.changeFormData.bind(this)} 
+                onSubmit={this.signUp.bind(this)}/> : null} 
+                {/*SignUpForm组件*/}
                 {this.state.selected === 'signIn' ? signInForm : null}
                 <nav onChange={this.switch.bind(this)}>
                     <label htmlFor="signUp" data={this.state.selected==='signUp'}>
