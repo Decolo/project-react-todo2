@@ -24,7 +24,7 @@ class SignUpForm extends Component {
         this.props.onChange.call(null,key,e)
     }
     signUp(e){
-        this.props.signUp.call(null,e)
+        this.props.onSubmit.call(null,e)
     }
 }
 export default SignUpForm

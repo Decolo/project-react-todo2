@@ -20,7 +20,7 @@ class SignInForm extends Component {
         this.props.onChange.call(null,key,e)
     }
     signIn(e){
-        this.props.signIn.call(null,e)
+        this.props.onSubmit.call(null,e)
     }
     showForgetPassword(){
         this.props.onShowForgetTab.call(null)

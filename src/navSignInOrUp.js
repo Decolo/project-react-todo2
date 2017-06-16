@@ -14,8 +14,7 @@ class navSignInOrUp extends Component {
         )
     }
     switch(e){
-        console.log(e.target.value)
-        this.props.onChange.call(null,e)
+        this.props.onSwitch.call(null,e)
     }
 }
 export default navSignInOrUp;
