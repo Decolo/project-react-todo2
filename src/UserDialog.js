@@ -3,11 +3,14 @@ import './UserDialog.css';
 import {signUpRemote,signInRemote,sendPasswordResetEmail} from './leanCloud';
 import {deepCopyByJson} from './deepCopyByJson';
 import SignUpForm from './signUpForm';  //SignUpForm组件
+import SignInForm from './signInForm';  //SignInForm组件
+
+
 class UserDialog extends Component{
     constructor(props){
         super(props)
         this.state={
-            selected:'signUp',
+            selected:'signIn',
             selectedTab: 'signInOrSignUp',
             formData:{
                 username: '',
@@ -89,30 +92,18 @@ class UserDialog extends Component{
         sendPasswordResetEmail(this.state.formData.email) 
     }
     
-    render(){
-         let signInForm = (<form className="sign-in" onSubmit={this.signIn.bind(this)}>
-                                <div className="row">
-                                    <label htmlFor="username"><i className="iconfont icon-yonghu"></i></label>
-                                    <input type="text" id="username" onChange={this.changeFormData.bind(this,'username')}/>
-                                </div>
-                                <div className="row">
-                                    <label htmlFor="password"><i className="iconfont icon-suoding"></i></label>
-                                    <input type="password" id="password" onChange={this.changeFormData.bind(this,'password')}/>
-                                </div>
-                                <div className="row action">
-                                    <button type="submit">Sign In</button>
-                                </div>
-                                <a href="#" onClick={this.showForgetPassword.bind(this)} className="forget-password">Forget password</a>
-                            </form>);
-        
+    render(){        
         let signInOrSignUpTab = (
             <div className="sign-tab">
                 <h1>Weclcome to TodoList</h1>
-                {/*SignUpForm组件*/}
+                {/*---------SignUpForm组件---------*/}
                 {this.state.selected === 'signUp' ? <SignUpForm onChange={this.changeFormData.bind(this)} 
                 onSubmit={this.signUp.bind(this)}/> : null} 
-                {/*SignUpForm组件*/}
-                {this.state.selected === 'signIn' ? signInForm : null}
+                {/*---------SignUpForm组件---------*/}
+                {/*---------SignInForm组件---------*/}
+                {this.state.selected === 'signIn' ? <SignInForm onChange={this.changeFormData.bind(this)} 
+                onSubmit={this.signIn.bind(this)} onShowForgetTab={this.showForgetPassword.bind(this)}/> : null}
+                {/*---------SignInForm组件---------*/}
                 <nav onChange={this.switch.bind(this)}>
                     <label htmlFor="signUp" data={this.state.selected==='signUp'}>
                     <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
