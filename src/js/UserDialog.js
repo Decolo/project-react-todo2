@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './UserDialog.css';
+import '../css/UserDialog.css';
 import {deepCopyByJson} from './deepCopyByJson';
-import SignInOrSignUpTab from './signInOrSignUpTab'; //SignInOrSignUpTab组件
-import ForgetPasswordTab from './forgetPsdTab'; //ForgetPasswordTab组件
+import SignInOrSignUpTab from './userDialog-js/signInOrSignUpTab'; //SignInOrSignUpTab组件
+import ForgetPasswordTab from './userDialog-js/forgetPsdTab'; //ForgetPasswordTab组件
 
 
 class UserDialog extends Component{

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import SignInForm from './signInForm';
-import SignUpForm from './signUpForm';
-import NavSignInOrUp from './navSignInOrUp';
-import {signUpRemote,signInRemote} from './leanCloud';
-import {deepCopyByJson} from './deepCopyByJson';
+import SignInForm from './signInOrSignUpTab-js/signInForm';
+import SignUpForm from './signInOrSignUpTab-js/signUpForm';
+import NavSignInOrUp from './signInOrSignUpTab-js/navSignInOrUp';
+import {signUpRemote,signInRemote} from '../leanCloud';
+import {deepCopyByJson} from '../deepCopyByJson';
 
 export default class SignInOrSignUpTab extends Component {
     constructor(props){

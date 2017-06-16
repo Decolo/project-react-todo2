@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: "iconfont";
-    src: url('./font/iconfont.eot?t=1496589594765');
+    src: url('../font/iconfont.eot?t=1496589594765');
     /* IE9*/
-    src: url('./font/iconfont.eot?t=1496589594765#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('./font/iconfont.woff?t=1496589594765') format('woff'), /* chrome, firefox */
-    url('./font/iconfont.ttf?t=1496589594765') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('./font/iconfont.svg?t=1496589594765#iconfont') format('svg');
+    src: url('../font/iconfont.eot?t=1496589594765#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/iconfont.woff?t=1496589594765') format('woff'), /* chrome, firefox */
+    url('../font/iconfont.ttf?t=1496589594765') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../font/iconfont.svg?t=1496589594765#iconfont') format('svg');
     /* iOS 4.1- */
 }
 
@@ -57,7 +57,7 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-    background-image: url('./img/bp.png');
+    background-image: url('../img/bp.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -145,7 +145,7 @@
 .user-dialog-wrapper .user-dialog .login-pic {
     width: 45%;
     height: 100%;
-    background-image: url('./img/loginpic.svg');
+    background-image: url('../img/loginpic.svg');
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 90%;
@@ -276,23 +276,26 @@
     text-decoration: underline;
 }
 
+.user-dialog-wrapper .user-dialog .content .forget-tab {
+    width: 80%;
+    text-align: center;
+}
+
 .user-dialog-wrapper .user-dialog .content .forget-tab h3 {
     font-size: 1.6rem;
     font-weight: 600px;
-    padding-right: 20px;
     padding-bottom: 10px;
 }
 
 .user-dialog-wrapper .user-dialog .content .forget-tab p {
     font-size: 0.8rem;
-    padding: 5px 10px 10px 10px;
+    padding: 5px 10px 10px 0px;
     text-align: left;
     color: rgb(138, 202, 200);
 }
 
 .user-dialog-wrapper .user-dialog .content .forget-tab form .row {
     text-align: left;
-    padding-left: 20px;
 }
 
 .user-dialog-wrapper .user-dialog .content .forget-tab form .row label {
@@ -308,7 +311,7 @@
     top: 2px;
 }
 
-.user-dialog-wrapper .user-dialog .content .forget-tab form .row input {
+.user-dialog-wrapper .user-dialog .content .forget-tab .forgotPassword .row input {
     border: none;
     border-radius: 10px;
     font-size: 1rem;

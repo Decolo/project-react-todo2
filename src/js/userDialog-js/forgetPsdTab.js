@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {sendPasswordResetEmail} from './leanCloud';
-import {deepCopyByJson} from './deepCopyByJson';
+import {sendPasswordResetEmail} from '../leanCloud';
+import {deepCopyByJson} from '../deepCopyByJson';
 
 class ForgetPasswordTab extends Component {
     constructor(props){
