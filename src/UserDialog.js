@@ -4,13 +4,14 @@ import {signUpRemote,signInRemote,sendPasswordResetEmail} from './leanCloud';
 import {deepCopyByJson} from './deepCopyByJson';
 import SignUpForm from './signUpForm';  //SignUpForm组件
 import SignInForm from './signInForm';  //SignInForm组件
+import NavSignInOrUp from './navSignInOrUp' //navSignInOrUp插件
 
 
 class UserDialog extends Component{
     constructor(props){
         super(props)
         this.state={
-            selected:'signIn',
+            selected:'signUp',
             selectedTab: 'signInOrSignUp',
             formData:{
                 username: '',
@@ -104,14 +105,9 @@ class UserDialog extends Component{
                 {this.state.selected === 'signIn' ? <SignInForm onChange={this.changeFormData.bind(this)} 
                 onSubmit={this.signIn.bind(this)} onShowForgetTab={this.showForgetPassword.bind(this)}/> : null}
                 {/*---------SignInForm组件---------*/}
-                <nav onChange={this.switch.bind(this)}>
-                    <label htmlFor="signUp" data={this.state.selected==='signUp'}>
-                    <input type='radio' id="signUp" defaultChecked={this.state.selected==='signUp'} 
-                    value="signUp"/><span>Need an account</span> Sign Up</label>
-                    <label htmlFor="signIn" data={this.state.selected==='signIn'}>
-                    <input type='radio' id="signIn" defaultChecked={this.state.selected==='signIn'} 
-                    value="signIn"/><span>Already have an account?</span> Sign In</label>
-                </nav>
+                {/*---------NavSignInOrUp组件---------*/}
+                <NavSignInOrUp onSwitch={this.switch.bind(this)} selectState={this.state.selected}/>
+                {/*---------NavSignInOrUp组件---------*/}
             </div>
         )
         let forgetPasswordTab = (
