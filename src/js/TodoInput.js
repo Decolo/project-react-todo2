@@ -1,28 +1,22 @@
-import React, {Component} from 'react';
+import React from 'react';
 import '../css/TodoInput.css';
-class TodoInput extends Component{
-    render(){
-        return(
-        <div className="input-box">
-            <input type="text" className="input"
-                value={this.props.content} 
-                onChange={this.changeTitle.bind(this)}
-                onKeyPress={this.submit.bind(this)} />
-        </div>
-        )
-    }//监听了按键事件，用value无效，改用defaultValue
-    submit(e){
-        if(e.key === 'Enter'){
-           if(e.target.value === ''){
-               alert('输入不能为空')
-           }else{
-                this.props.onSubmit(e) 
-           }
-        }
-    } //监听了回车这个事件
-    changeTitle(e){
-        this.props.onChange(e)
-    }
+function TodoInput(props){
+    return(
+    <div className="input-box">
+        <input type="text" className="input"
+            value={props.content} 
+            onChange={props.onChange}
+            onKeyPress={submit.bind(null,props)} />
+    </div>
+    )
 }
-
+function submit(props,e){
+    if(e.key === 'Enter'){
+        if(e.target.value === ''){
+            alert('输入不能为空')
+        }else{
+            props.onSubmit(e) 
+        }
+    }
+} //监听了回车这个事件
 export default TodoInput;
