@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    font-size: 50px;
+    font-size: 15px;
     background-image: url('../img/bp.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,9 +15,8 @@ body {
 
 #root {
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
-    height: 100%;
-    font-size: 14px;
     align-items: center;
 }
