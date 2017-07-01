@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {sendPasswordResetEmail} from '../leanCloud';
+import {AvModule} from '../leanCloud';
 import {deepCopyByJson} from '../deepCopyByJson';
 
 class ForgetPasswordTab extends Component {
@@ -24,7 +24,7 @@ class ForgetPasswordTab extends Component {
                         onChange={this.changeFormData.bind(this)}/>
                     </div>
                     <div className="row actions">
-                    <button type="submit" onClick={this.showSignInTab.bind(this)} value="signIn">Send E-mails</button>
+                    <button type="submit" onClick={this.resetPassword.bind(this)} value="signIn">Send E-mails</button>
                     <a href="#" className="back-signup" onClick={this.showSignUpTab.bind(this)} value="signUp">Back to Sign Up</a>
                     </div>
                 </form>
@@ -32,7 +32,17 @@ class ForgetPasswordTab extends Component {
     }
     resetPassword(e){
         e.preventDefault()
-        sendPasswordResetEmail(this.state.formData.email) 
+        if(!isEmail(this.state.formData.email)){
+            alert('The email is invalid')
+        }else{
+            let success = function(){
+                alert('The email will be send soon.Check you mailbox.')
+            }
+            let error = function(){
+                alert("This email hasn't been used")
+            }
+            AvModule.sendPasswordResetEmail(this.state.formData.email, success,error) 
+        }
     }
     changeFormData(e){
         let stateCopy = deepCopyByJson(this.state)
@@ -51,5 +61,8 @@ class ForgetPasswordTab extends Component {
         this.props.onShowUpTab.call(null,e)
     }    
 }
-
+function isEmail(str){
+    var reg = /\w+@[0-9a-z]{2,8}(\.\w+)+/g
+    return reg.test(str)
+}
 export default ForgetPasswordTab;

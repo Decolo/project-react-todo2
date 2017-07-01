@@ -5,12 +5,11 @@
     position: relative;
     width: 90%;
     margin: 0 auto;
-    /*border: 1px solid red;*/
     height: 2rem;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    padding-left: 8px;
+    margin-bottom: 1rem;
+    margin-left: 2.2rem;
 }
 
 .App .input-todo a {
@@ -52,31 +51,27 @@
 }
 
 .App .input-todo .input-box {
-    width: 70%;
+    width: 84%;
     /*border: 1px solid red;*/
-    padding-left: 20px;
+    padding-left: .6rem;
     position: relative;
 }
 
 .App .input-todo .input-box .input {
-    border: 2px solid #ff4848;
     box-sizing: border-box;
     width: 100%;
     border-radius: 6px;
-    /*border-width: 0px;*/
+    border-width: 0px;
     height: 2rem;
     line-height: 2rem;
     padding-left: 1rem;
     font-size: 1rem;
-    background-color: white;
+    background-color: #ffd9b1;
     color: #ff4848;
     font-weight: 600;
 }
 
 .App .input-todo .input-box .input:focus {
     outline: none;
-    box-shadow: 0px 2px 6px #f5ca7f;
+    background-color: #fecc95
 }
-
-
-/*---------------------input-todo------------------------*/

@@ -10,18 +10,25 @@ export default class TodoItem extends Component {
     render() {
         return ( 
             <div>
-                <input type="checkbox" id={this.props.index}
-                checked={ this.props.todo.status === "completed" }
-                onChange={ this.toggle.bind(this) }/> 
-                <label htmlFor={this.props.index} className="check-box">
-                </label>
+                <div className="btn-state">
+                    <input type="checkbox" id={this.props.index}
+                    checked={ this.props.todo.status === "completed" }
+                    onChange={ this.toggle.bind(this) }/> 
+                    <label htmlFor={this.props.index} className="check-box">
+                    </label>
+                </div>
                 <div className="item-content">
-                    {this.state.editable ? <input className="edit-box" type="text" 
-                    value={this.props.todo.itemContent}
-                    onKeyPress={this.submit.bind(this)}
-                    onChange={this.changeContent.bind(this)}
-                    /> : null}
-                    {!this.state.editable ? <p>{this.props.todo.itemContent}</p> : null}
+                    {
+                    this.state.editable ? 
+                    <div className="edit-box">
+                        <input type="text" value={this.props.todo.itemContent}
+                        onKeyPress={this.submit.bind(this)}
+                        onChange={this.changeContent.bind(this)}
+                        /> <div className="edit-box-close" onClick={ this.edit.bind(this)}>x</div>
+                    </div>
+                    : 
+                    null}
+                    {!this.state.editable ? <p className={this.props.todo.status}>{this.props.todo.itemContent}</p> : null}
                 </div>
 
 
