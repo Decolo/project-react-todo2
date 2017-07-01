@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../css/UserDialog.css';
 import {deepCopyByJson} from './deepCopyByJson';
 import SignInOrSignUpTab from './userDialog-js/signInOrSignUpTab'; //SignInOrSignUpTab组件
 import ForgetPasswordTab from './userDialog-js/forgetPsdTab'; //ForgetPasswordTab组件

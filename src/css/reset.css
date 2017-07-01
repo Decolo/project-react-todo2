@@ -38,3 +38,50 @@ a {
     border-radius: 8px;
     background-color: #ff4848
 }
+
+
+/*--------------------iconfont-------------*/
+
+@font-face {
+    font-family: "iconfont";
+    src: url('../font/iconfont.eot?t=1496589594765');
+    /* IE9*/
+    src: url('../font/iconfont.eot?t=1496589594765#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/iconfont.woff?t=1496589594765') format('woff'), /* chrome, firefox */
+    url('../font/iconfont.ttf?t=1496589594765') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('../font/iconfont.svg?t=1496589594765#iconfont') format('svg');
+    /* iOS 4.1- */
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-dengchu:before {
+    content: "\e642";
+}
+
+.icon-yonghu:before {
+    content: "\e61a";
+}
+
+.icon-youjian:before {
+    content: "\e622";
+}
+
+.icon-shanchu:before {
+    content: "\e62a";
+}
+
+.icon-bianji:before {
+    content: "\e62b";
+}
+
+.icon-suoding:before {
+    content: "\e634";
+}

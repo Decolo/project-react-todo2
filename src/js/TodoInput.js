@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/TodoInput.css';
+
 function TodoInput(props){
     return(
     <div className="input-box">

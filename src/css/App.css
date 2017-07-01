@@ -1,5 +1,3 @@
-/*------------------------iconfont--------------------------*/
-
 .App {
     text-align: center;
     width: 60%;
@@ -39,11 +37,6 @@
     border-radius: 20px;
     box-sizing: border-box;
     margin-right: 4px;
-}
-
-.App .last-row {
-    /*position: absolute;
-    bottom: 10px;*/
 }
 
 .App .last-row:after {
